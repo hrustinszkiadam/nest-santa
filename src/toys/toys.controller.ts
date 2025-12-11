@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import { ToysService } from './toys.service';
 import { CreateToyDto } from './dto/create-toy.dto';
@@ -28,7 +29,13 @@ export class ToysController {
 
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
-    return await this.toysService.findOne(id);
+    const toy = await this.toysService.findOne(id);
+
+    if (!toy) {
+      throw new NotFoundException(`Toy with ID ${id} not found`);
+    }
+
+    return toy;
   }
 
   @Patch(':id')
