@@ -55,7 +55,9 @@ export class ChildrenService {
   }
 
   async findAll() {
-    return await this.db.query.children.findMany();
+    return await this.db.query.children.findMany({
+      with: { toy: true },
+    });
   }
 
   async findOne(id: number) {
@@ -63,6 +65,7 @@ export class ChildrenService {
       where: {
         id,
       },
+      with: { toy: true },
     });
   }
 
@@ -132,7 +135,7 @@ export class ChildrenService {
       where: {
         id: child.id,
       },
-      with: { toys: true },
+      with: { toy: true },
     });
   }
 

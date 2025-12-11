@@ -3,7 +3,7 @@ import * as schema from './schema';
 
 const relations = defineRelations(schema, (r) => ({
   children: {
-    toys: r.one.toys({
+    toy: r.one.toys({
       from: r.children.toyId,
       to: r.toys.id,
       optional: true,
