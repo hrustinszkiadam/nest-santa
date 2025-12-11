@@ -1,0 +1,492 @@
+{
+  "info": {
+    "_postman_id": "f3530af1-4ca5-423e-a275-7e7c373802ab",
+    "name": "Santa API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "toys",
+      "item": [
+        {
+          "name": "Get All Toys",
+          "id": "ca785f42-1905-4fca-ae37-dc99b5802eda",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "type": "default"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/toys",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "toys"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get One Toy",
+          "id": "a18713fc-af5c-4d1f-8977-1f35fb729219",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/toys/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "toys",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get One Toy (Wrong ID)",
+          "id": "e8eff8f1-3b16-4bf1-9f01-6f61bac6a9e7",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/toys/1234",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "toys",
+                "1234"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete One Toy",
+          "id": "cc9f4a90-544d-47b0-aa68-0d09e3edec3e",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/toys/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "toys",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add New Toy",
+          "id": "86ee7f87-dc2a-4684-ada9-625f7a73ae8c",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Toy train\",\r\n    \"material\": \"wood\",\r\n    \"weight\": 1.25\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/toys",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "toys"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add New Toy (Invalid)",
+          "id": "bc31c915-8e5e-4185-92d8-5d9e833d2d11",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": 78,\r\n    \"material\": \"air\",\r\n    \"weight\": -5\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/toys",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "toys"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Toy",
+          "id": "382688fe-8fff-4e4d-9946-1c51ae7cd49d",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"weight\": 3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/toys/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "toys",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Toy (Invalid)",
+          "id": "35e5d919-db9a-4b82-91c6-eef5c06d023b",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"material\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/toys/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "toys",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Toy (Wrong ID)",
+          "id": "c0156f65-ef79-40db-be47-90cf6f5bc8bc",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"PlayCube X\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/toys/1234",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "toys",
+                "1234"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "bc1446ba-6250-4187-8945-529629f7d766"
+    },
+    {
+      "name": "children",
+      "item": [
+        {
+          "name": "Get All Children",
+          "id": "59b0e0c2-883e-469c-88fe-c672358916f5",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/children",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "children"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get One Child",
+          "id": "e68da40d-d476-4254-a4e9-d15a7aea5208",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/children/21",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "children",
+                "21"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get One Child (Wrong ID)",
+          "id": "fa89a4ae-b126-4508-825f-2d6cb0888932",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/children/1234",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "children",
+                "1234"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete One Child",
+          "id": "ac9f92d2-be76-4c92-a5ee-c3ff1b888ee2",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/children/21",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "children",
+                "21"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add New Child",
+          "id": "040e1c15-8302-42fa-a28f-6c91198e091f",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Petrik Lajos\",\r\n    \"address\": \"Hungary, Budapest, Thokoly road 48-54.\",\r\n    \"wasGood\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/children",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "children"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add New Child (Invalid)",
+          "id": "157af11a-2963-4b94-9a9e-673aecfb9c00",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": 3,\r\n    \"wasGood\": \"true\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/children",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "children"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Child",
+          "id": "e972b755-069c-4194-ba33-007e735ff959",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"wasGood\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/children/21",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "children",
+                "21"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Child (Invalid)",
+          "id": "5b8d6107-4fc0-45f2-b84b-12bb5dddf64d",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"address\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/children/21",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "children",
+                "21"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Child (Wrong ID)",
+          "id": "b0860b47-028f-4036-9c14-4bde68e3f44e",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/children/1234",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "children",
+                "1234"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "23e6306b-7a54-4ec8-a85f-3f4d8984b39c"
+    },
+    {
+      "name": "Add Toy to Child",
+      "id": "00f36004-ebdc-4724-b90c-742e45e15703",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/children/2/toys/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "children",
+            "2",
+            "toys",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Remove Toy from Child",
+      "id": "6230f9d2-82f9-427f-bb90-c157e1d3a9df",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/children/2/toy",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "children",
+            "2",
+            "toy"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "id": "e727b482-a2bb-4891-af26-df1916280c10",
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
