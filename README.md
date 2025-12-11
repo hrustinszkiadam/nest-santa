@@ -1,12 +1,12 @@
-# Nestjs Drizzle Template _(Írj át)_
+# Nestjs Mikulás API
 
 ## Fejlesztői környezet beállítása
 
-### Klónozd a repót _(Írd át a linket a saját repodra)_
+### Klónozd a repót
 
 ```bash
-git clone https://github.com/hrustinszkiadam/nest-drizzle-template.git
-cd nest-drizzle-template
+git clone https://github.com/hrustinszkiadam/nest-santa.git
+cd nest-santa
 ```
 
 ### Telepítsd a csomagokat
