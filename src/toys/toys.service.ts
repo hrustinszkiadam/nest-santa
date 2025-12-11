@@ -24,6 +24,8 @@ export class ToysService {
     if (!toy) {
       throw new NotFoundException(`Toy with ID ${id} does not exist.`);
     }
+
+    return toy;
   }
 
   async create(createToyDto: CreateToyDto) {
@@ -33,13 +35,15 @@ export class ToysService {
       weight: createToyDto.weight,
     };
 
-    const [newToy] = await this.db.insert(toys).values(newToyData).returning();
-
-    if (!newToy) {
-      throw new InternalServerErrorException(
-        'Failed to create new toy. Please try again later.',
-      );
-    }
+    const [newToy] = await this.db
+      .insert(toys)
+      .values(newToyData)
+      .returning()
+      .catch(() => {
+        throw new InternalServerErrorException(
+          'Failed to create new toy. Please try again later.',
+        );
+      });
 
     return newToy;
   }
@@ -68,13 +72,12 @@ export class ToysService {
       .update(toys)
       .set(updatedToyData)
       .where(eq(toys.id, id))
-      .returning();
-
-    if (!updatedToy) {
-      throw new InternalServerErrorException(
-        `Failed to update toy with ID ${id}. Please try again later.`,
-      );
-    }
+      .returning()
+      .catch(() => {
+        throw new InternalServerErrorException(
+          `Failed to update toy with ID ${id}. Please try again later.`,
+        );
+      });
 
     return updatedToy;
   }
@@ -82,13 +85,15 @@ export class ToysService {
   async remove(id: number) {
     await this.assertExists(id);
 
-    try {
-      await this.db.delete(toys).where(eq(toys.id, id)).execute();
-    } catch {
-      throw new InternalServerErrorException(
-        `Failed to delete toy with ID ${id}. Please try again later.`,
-      );
-    }
+    await this.db
+      .delete(toys)
+      .where(eq(toys.id, id))
+      .execute()
+      .catch(() => {
+        throw new InternalServerErrorException(
+          `Failed to delete toy with ID ${id}. Please try again later.`,
+        );
+      });
 
     return {
       success: true,
