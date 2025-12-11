@@ -3,7 +3,9 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import { reset } from 'drizzle-seed';
 import * as schema from './schema';
 import relations from './relations';
-import { DEFAULT_SEED_ROW_COUNT } from './definitions';
+import { DEFAULT_SEED_ROW_COUNT, NewChild, NewToy } from './definitions';
+import { faker } from '@faker-js/faker';
+import { materials } from './definitions';
 
 const connectionString = process.env.DATABASE_URL;
 const rowsToInsert =
@@ -21,12 +23,54 @@ const db = drizzle(connectionString, {
   casing: 'snake_case',
 });
 
+function generatePlaceholderToys(count: number): NewToy[] {
+  return Array.from({ length: count }, () => ({
+    name: faker.commerce.productName(),
+    material: faker.helpers.arrayElement(materials),
+    weight: parseFloat(
+      faker.commerce.price({
+        min: 0.1,
+        max: 5.0,
+      }),
+    ),
+  }));
+}
+
+function generatePlaceholderChildren(count: number): NewChild[] {
+  return Array.from({ length: count }, () => ({
+    name: faker.commerce.productName(),
+    address: `${faker.location.country()}, ${faker.location.city()}, ${faker.location.streetAddress()}`,
+    wasGood: faker.datatype.boolean(),
+  }));
+}
+
 async function main() {
   console.log(
     `Resetting database and seeding data with ${rowsToInsert} rows...`,
   );
 
   await reset(db, schema);
+
+  const toysData = generatePlaceholderToys(rowsToInsert);
+  const childrenData = generatePlaceholderChildren(rowsToInsert);
+
+  await db.transaction(async (tx) => {
+    const generatedToys = await tx
+      .insert(schema.toys)
+      .values(toysData)
+      .returning();
+    await tx
+      .insert(schema.children)
+      .values(
+        childrenData.map((child) => ({
+          ...child,
+          toyId: child.wasGood
+            ? faker.helpers.arrayElement(generatedToys).id
+            : null,
+        })),
+      )
+      .execute();
+  });
 }
 
 main()
