@@ -58,7 +58,7 @@ export class ChildrenController {
     return await this.childrenService.assignToy(id, toyId);
   }
 
-  @Delete(':id/toy/remove')
+  @Delete(':id/toy')
   async removeToy(@Param('id', ParseIntPipe) id: number) {
     return await this.childrenService.removeToy(id);
   }
