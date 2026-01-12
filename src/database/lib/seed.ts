@@ -38,7 +38,7 @@ function generatePlaceholderToys(count: number): NewToy[] {
 
 function generatePlaceholderChildren(count: number): NewChild[] {
   return Array.from({ length: count }, () => ({
-    name: faker.commerce.productName(),
+    name: faker.person.fullName(),
     address: `${faker.location.country()}, ${faker.location.city()}, ${faker.location.streetAddress()}`,
     wasGood: faker.datatype.boolean(),
   }));
