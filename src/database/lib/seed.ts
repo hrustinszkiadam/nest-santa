@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { reset } from 'drizzle-seed';
 import * as schema from './schema';
 import relations from './relations';
 import { DEFAULT_SEED_ROW_COUNT, NewChild, NewToy } from './definitions';
@@ -49,7 +48,12 @@ async function main() {
     `Resetting database and seeding data with ${rowsToInsert} rows...`,
   );
 
-  await reset(db, schema);
+  await db.transaction(async (tx) => {
+    await tx.delete(schema.children);
+    await tx.delete(schema.toys);
+    await tx.execute(`ALTER SEQUENCE toys_id_seq RESTART WITH 1`);
+    await tx.execute(`ALTER SEQUENCE children_id_seq RESTART WITH 1`);
+  });
 
   const toysData = generatePlaceholderToys(rowsToInsert);
   const childrenData = generatePlaceholderChildren(rowsToInsert);
@@ -59,17 +63,14 @@ async function main() {
       .insert(schema.toys)
       .values(toysData)
       .returning();
-    await tx
-      .insert(schema.children)
-      .values(
-        childrenData.map((child) => ({
-          ...child,
-          toyId: child.wasGood
-            ? faker.helpers.arrayElement(generatedToys).id
-            : null,
-        })),
-      )
-      .execute();
+    await tx.insert(schema.children).values(
+      childrenData.map((child) => ({
+        ...child,
+        toyId: child.wasGood
+          ? faker.helpers.arrayElement(generatedToys).id
+          : null,
+      })),
+    );
   });
 }
 
