@@ -17,3 +17,17 @@ export type UpdateToy = Partial<NewToy>;
 export type Child = typeof schema.children.$inferSelect;
 export type NewChild = typeof schema.children.$inferInsert;
 export type UpdateChild = Partial<NewChild>;
+
+export type ChildWithToy = Omit<Child, 'toyId' | 'wasGood'> &
+  (
+    | {
+        wasGood: boolean;
+        toyId: null;
+        toy: null;
+      }
+    | {
+        wasGood: true;
+        toyId: number;
+        toy: Toy;
+      }
+  );
